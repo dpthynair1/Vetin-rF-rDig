@@ -1,0 +1,25 @@
+﻿@model DoctorsListViewModel
+
+@foreach (var doctor in Model.Doctors)
+{
+
+    <div class="card col-sm-3 col-lg-3 col-md-3 mr-2 mb-2 d-inline-flex">
+
+        <img class="card-img-top border" src="@doctor.ImageUrl" width="100" height="150" asp-append-version="true" />
+
+        <div class="card-body">
+
+            <h4 class="card-title ">
+                @doctor.DOctorName
+            </h4>
+        </div>
+        <p class="card-text text-secondary"> @doctor.Specliazation </p>
+
+        <p class="card-text text-secondary">@doctor.Category.CategoryName</p>
+
+
+    </div>
+
+
+}
+
