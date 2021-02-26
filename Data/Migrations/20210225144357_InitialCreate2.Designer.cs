@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Docter_MVC_Miniproject3.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210223192238_AddedAttributes")]
-    partial class AddedAttributes
+    [Migration("20210225144357_InitialCreate2")]
+    partial class InitialCreate2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,23 +49,18 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("time");
+
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PatientId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PatientId1")
-                        .HasColumnType("int");
-
                     b.HasKey("AppointmentId");
 
                     b.HasIndex("DoctorId");
-
-                    b.HasIndex("PatientId1");
 
                     b.ToTable("Appointments");
                 });
@@ -339,13 +334,7 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Doctor_MVC_Miniproject3.Models.Patient", "Patient")
-                        .WithMany()
-                        .HasForeignKey("PatientId1");
-
                     b.Navigation("Doctor");
-
-                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("Doctor_MVC_Miniproject3.Models.Doctor", b =>

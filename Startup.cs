@@ -36,6 +36,8 @@ namespace Docter_MVC_Miniproject3
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddTransient<UploadInterface, uploadfilerepo>();
             services.AddScoped<IDoctorRepository, DoctorRepository>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();

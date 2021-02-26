@@ -31,5 +31,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\ViewModels\" />
+    <Folder Include="Views\Appointment\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Views\Patients\CreatePatients.cshtml" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,26 +12,41 @@ namespace Doctor_MVC_Miniproject3.Models
         public Appointment()
         {
         }
+        TimeSpan ts = new TimeSpan();
 
-        public Appointment(int appointmentId, DateTime dateTime, int doctorId, Doctor doctor, int patientId, Patient patient)
-        {
-            AppointmentId = appointmentId;
-            DateTime = dateTime;
-            DoctorId = doctorId;
-            Doctor = doctor;
-            PatientId = patientId;
-            Patient = patient;
-        }
 
         public int AppointmentId { get; set; }
         public DateTime DateTime { get; set; }
         public DateTime EndTime { get; set; }
+        [Required]
         public int DoctorId { get; set; }
+
+        [ForeignKey("DoctorId")]
         public Doctor Doctor{ get; set; }
-        public int PatientId { get; set; }
-        public Patient Patient { get; set; }
+
+        //public int? PatientId { get; set; }
+        //public Patient Patient { get; set; }
+
         public Boolean IsAvailable { get; set; }
+        
+        public TimeSpan Duration
+        {
+            get
+            {
+                return ts = EndTime.Subtract(DateTime);
+            }
+            set
+            {
+                ts = EndTime.Subtract(DateTime);
+            }
+            
+
+        }
+
+        
+    }
+
 
 
     }
-}
+

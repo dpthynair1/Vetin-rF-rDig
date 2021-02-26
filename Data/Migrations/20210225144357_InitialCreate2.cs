@@ -3,23 +3,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Docter_MVC_Miniproject3.Data.Migrations
 {
-    public partial class addeddatetime : Migration
+    public partial class InitialCreate2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<DateTime>(
-                name: "DateTime",
-                table: "Patients",
-                type: "datetime2",
+            migrationBuilder.AddColumn<TimeSpan>(
+                name: "Duration",
+                table: "Appointments",
+                type: "time",
                 nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                defaultValue: new TimeSpan(0, 0, 0, 0, 0));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "DateTime",
-                table: "Patients");
+                name: "Duration",
+                table: "Appointments");
         }
     }
 }

@@ -7,50 +7,57 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Docter_MVC_Miniproject3.Data;
 using Doctor_MVC_Miniproject3.Models;
+using Docter_MVC_Miniproject3.Views.ViewModels;
+using Docter_MVC_Miniproject3.Models;
 
 namespace Docter_MVC_Miniproject3.Controllers
 {
     public class AppointmentsController : Controller
     {
+
+        private readonly IAppointmentRepository _appointmentRepository;
+        
         private readonly ApplicationDbContext _context;
 
-        public AppointmentsController(ApplicationDbContext context)
+
+
+        public AppointmentsController(ApplicationDbContext context, IAppointmentRepository appointmentRepository)
         {
             _context = context;
+            _appointmentRepository = appointmentRepository; 
         }
-
         // GET: Appointments
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.Appointments.Include(a => a.Doctor).Include(a => a.Patient);
-            return View(await applicationDbContext.ToListAsync());
-        }
+        //public async Task<IActionResult> Index()
+        //{
+        //    var applicationDbContext = _context.Appointments.Include(a => a.Doctor).Include(a => a.Patient);
+        //    return View(await applicationDbContext.ToListAsync());
+        //}
 
         // GET: Appointments/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var appointment = await _context.Appointments
-                .Include(a => a.Doctor)
-                .Include(a => a.Patient)
-                .FirstOrDefaultAsync(m => m.AppointmentId == id);
-            if (appointment == null)
-            {
-                return NotFound();
-            }
+        //    var appointment = await _context.Appointments
+        //        .Include(a => a.Doctor)
+        //        .Include(a => a.Patient)
+        //        .FirstOrDefaultAsync(m => m.AppointmentId == id);
+        //    if (appointment == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(appointment);
-        }
+        //    return View(appointment);
+        //}
 
         // GET: Appointments/Create
         public IActionResult Create()
         {
             ViewData["DoctorId"] = new SelectList(_context.Doctors, "DoctorId", "DoctorId");
-            ViewData["PatientId"] = new SelectList(_context.Patients, "PatientId", "PatientId");
+           // ViewData["PatientId"] = new SelectList(_context.Patients, "PatientId", "PatientId");
             return View();
         }
 
@@ -59,18 +66,40 @@ namespace Docter_MVC_Miniproject3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AppointmentId,DateTime,DoctorId,PatientId")] Appointment appointment)
+        public async Task<IActionResult> Create(AppointmentViewModel vmodel, Appointment appointment)
         {
+            appointment.DoctorId = vmodel.DoctorId;
+            appointment.Doctor = vmodel.Doctor;
+            appointment.DateTime = vmodel.StartTime;
+            appointment.EndTime = vmodel.EndTime;
+            appointment.IsAvailable = vmodel.IsAvailable;
+
+
             if (ModelState.IsValid)
             {
                 _context.Add(appointment);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                TempData["Success"] = "Appointment Added";
             }
+           
             ViewData["DoctorId"] = new SelectList(_context.Doctors, "DoctorId", "DoctorId", appointment.DoctorId);
-            ViewData["PatientId"] = new SelectList(_context.Patients, "PatientId", "PatientId", appointment.PatientId);
-            return View(appointment);
+          //  ViewData["PatientId"] = new SelectList(_context.Patients, "PatientId", "PatientId", appointment.PatientId);
+            return View("Create");
         }
+
+        // GET: Appointments
+        [HttpGet]
+        public IActionResult List()
+        {
+            AppointmentListViewModel appointmentListViewModel = new AppointmentListViewModel();
+            appointmentListViewModel.Appointments = _appointmentRepository.AllAppointments;
+
+
+            return View(appointmentListViewModel);
+        }
+
+
 
         // GET: Appointments/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -86,7 +115,7 @@ namespace Docter_MVC_Miniproject3.Controllers
                 return NotFound();
             }
             ViewData["DoctorId"] = new SelectList(_context.Doctors, "DoctorId", "DoctorId", appointment.DoctorId);
-            ViewData["PatientId"] = new SelectList(_context.Patients, "PatientId", "PatientId", appointment.PatientId);
+          //  ViewData["PatientId"] = new SelectList(_context.Patients, "PatientId", "PatientId", appointment.PatientId);
             return View(appointment);
         }
 
@@ -123,29 +152,29 @@ namespace Docter_MVC_Miniproject3.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["DoctorId"] = new SelectList(_context.Doctors, "DoctorId", "DoctorId", appointment.DoctorId);
-            ViewData["PatientId"] = new SelectList(_context.Patients, "PatientId", "PatientId", appointment.PatientId);
+          //  ViewData["PatientId"] = new SelectList(_context.Patients, "PatientId", "PatientId", appointment.PatientId);
             return View(appointment);
         }
 
         // GET: Appointments/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var appointment = await _context.Appointments
-                .Include(a => a.Doctor)
-                .Include(a => a.Patient)
-                .FirstOrDefaultAsync(m => m.AppointmentId == id);
-            if (appointment == null)
-            {
-                return NotFound();
-            }
+        //    var appointment = await _context.Appointments
+        //        .Include(a => a.Doctor)
+        //        .Include(a => a.Patient)
+        //        .FirstOrDefaultAsync(m => m.AppointmentId == id);
+        //    if (appointment == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(appointment);
-        }
+        //    return View(appointment);
+        //}
 
         // POST: Appointments/Delete/5
         [HttpPost, ActionName("Delete")]

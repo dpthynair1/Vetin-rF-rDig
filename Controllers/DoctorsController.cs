@@ -16,7 +16,6 @@ namespace Docter_MVC_Miniproject3.Controllers
     public class DoctorsController : Controller
     {
         private readonly IDoctorRepository _doctorRepository;
-      //  private readonly ICategoryRepository _categoryRepository;
         private readonly ApplicationDbContext _context;
         private UploadInterface _upload;
 

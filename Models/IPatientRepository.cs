@@ -5,9 +5,13 @@ using System.Threading.Tasks;
 
 namespace Doctor_MVC_Miniproject3.Models
 {
-    interface IPatientRepository
+   public interface IPatientRepository
     {
-        IEnumerable<Doctor> AllDoctors { get; }
+        public IEnumerable<Doctor> AllDoctors { get; }
+        public IEnumerable<Appointment>  appointments { get; }
+        public Patient GetPatient { get; }
+        
+
         
     }
 }

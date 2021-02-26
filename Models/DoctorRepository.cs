@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Docter_MVC_Miniproject3.Data;
 using Doctor_MVC_Miniproject3.Models;
 using Microsoft.EntityFrameworkCore;
@@ -18,9 +19,10 @@ namespace Docter_MVC_Miniproject3.Models
         public IEnumerable<Appointment> AllAppointments => throw new NotImplementedException();
 
        
-        public Appointment GetAppointmentsById(int AppointmentId)
+        public IEnumerable<Appointment> GetAppointments(int Id)
         {
-            throw new NotImplementedException();
+            var Appoinments = _appDbContext.Appointments.Where(a => a.DoctorId == Id).ToList();
+            return Appoinments;
         }
 
         public IEnumerable<Doctor> AllDoctors

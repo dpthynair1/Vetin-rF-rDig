@@ -19,6 +19,38 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Docter_MVC_Miniproject3.Models.BookingPageItem", b =>
+                {
+                    b.Property<int>("BookingPageItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AppointmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PatientName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SickenessDetails")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BookingPageItemId");
+
+                    b.HasIndex("AppointmentId");
+
+                    b.ToTable("BookingPageItems");
+                });
+
             modelBuilder.Entity("Docter_MVC_Miniproject3.Models.Category", b =>
                 {
                     b.Property<int>("CategoryId")
@@ -47,23 +79,18 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("time");
+
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PatientId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PatientId1")
-                        .HasColumnType("int");
-
                     b.HasKey("AppointmentId");
 
                     b.HasIndex("DoctorId");
-
-                    b.HasIndex("PatientId1");
 
                     b.ToTable("Appointments");
                 });
@@ -125,6 +152,8 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PatientId");
+
+                    b.HasIndex("AppointmentId");
 
                     b.ToTable("Patients");
                 });
@@ -329,6 +358,15 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Docter_MVC_Miniproject3.Models.BookingPageItem", b =>
+                {
+                    b.HasOne("Doctor_MVC_Miniproject3.Models.Appointment", "Appointment")
+                        .WithMany()
+                        .HasForeignKey("AppointmentId");
+
+                    b.Navigation("Appointment");
+                });
+
             modelBuilder.Entity("Doctor_MVC_Miniproject3.Models.Appointment", b =>
                 {
                     b.HasOne("Doctor_MVC_Miniproject3.Models.Doctor", "Doctor")
@@ -337,13 +375,7 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Doctor_MVC_Miniproject3.Models.Patient", "Patient")
-                        .WithMany()
-                        .HasForeignKey("PatientId1");
-
                     b.Navigation("Doctor");
-
-                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("Doctor_MVC_Miniproject3.Models.Doctor", b =>
@@ -359,6 +391,17 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                         .HasForeignKey("PatientId");
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Doctor_MVC_Miniproject3.Models.Patient", b =>
+                {
+                    b.HasOne("Doctor_MVC_Miniproject3.Models.Appointment", "Appointment")
+                        .WithMany()
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

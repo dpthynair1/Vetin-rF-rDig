@@ -1,0 +1,43 @@
+﻿@model AppointmentListViewModel
+
+@{
+    ViewData["Title"] = "List Appointments";
+}
+
+<h2>Index</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.Appointments)
+        {
+            <tr>
+                
+                <td>
+                    @Html.DisplayFor(modelitem => item.Doctor.DOctorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.DateTime)
+                </td>
+                <td>
+                    <p> <i class="fas fa-hourglass-end"></i> @Html.DisplayFor(modelitem => item.Duration.TotalMinutes) mins</p>
+                </td>
+                <td>
+                    <a asp-controller="Patients"
+   asp-action="Create"asp-route-id="@item.AppointmentId">Reserve</a>
+                </td>
+
+            </tr>
+
+        }
+    </tbody>
+
+</table>
+
+

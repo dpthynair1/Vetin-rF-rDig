@@ -18,5 +18,6 @@ namespace Docter_MVC_Miniproject3.Data
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<BookingPageItem> BookingPageItems { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Docter_MVC_Miniproject3.Data;
 using Doctor_MVC_Miniproject3.Models;
+using Docter_MVC_Miniproject3.Views.ViewModels;
 
 namespace Docter_MVC_Miniproject3.Controllers
 {
@@ -40,7 +41,7 @@ namespace Docter_MVC_Miniproject3.Controllers
                 return NotFound();
             }
 
-            return View(patient);
+            return View("Create");
         }
 
         // GET: Patients/Create
@@ -54,15 +55,21 @@ namespace Docter_MVC_Miniproject3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PatientId,PatientName,Age,DateTime,DoctorName,Email")] Patient patient)
+        public async Task<IActionResult> Create(PatientViewModel vmodel, Patient patient, int AppointmentId)
         {
+            patient.AppointmentId = 6;
+            patient.Age = vmodel.Age;
+            patient.Email = vmodel.Email;
+            patient.PatientName = vmodel.PatientName;
+            
+
             if (ModelState.IsValid)
             {
                 _context.Add(patient);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+               // return RedirectToAction(nameof(Index));
             }
-            return View(patient);
+            return View("Create", "Patients");
         }
 
         // GET: Patients/Edit/5
