@@ -1,0 +1,35 @@
+﻿@model BookingPageViewModel
+
+
+<h2>Confirm your Appointment</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Doctor</th>
+            <th>Appointment</th>
+            <th class="text-right">Duration</th>
+            <th class="text-right">Fees</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.BookingPage.BookingPageItems)
+        {
+            <tr>
+                <td class="text-center text-dark">@item.Appointment.Doctor.DOctorName</td>
+                <td class="text-left text-dark">@item.Appointment.DateTime</td>
+                <td class="text-right text-dark">@item.Appointment.Duration.TotalMinutes  mins</td>
+                <td class="text-right text-dark">
+                    @item.ConsultationFee <span> Kr</span>
+                </td>
+            </tr>
+        }
+       
+    </tbody>
+   
+   
+</table>
+
+<div class="text-center">
+    <a class="btn btn-primary" asp-controller="Patient" asp-action="CheckOut">Book</a>
+</div>

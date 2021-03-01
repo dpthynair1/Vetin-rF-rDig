@@ -21,6 +21,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore" Version="5.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,7 +32,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\ViewModels\" />
-    <Folder Include="Views\Appointment\" />
+    <Folder Include="Views\BookingPage\" />
+    <Folder Include="Components\" />
+    <Folder Include="Views\Shared\Components\" />
+    <Folder Include="Views\Shared\Components\BookingPageSummary\" />
+    <Folder Include="Views\Patient\" />
+    <Folder Include="Views\PatientDetails\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Patients\CreatePatients.cshtml" />

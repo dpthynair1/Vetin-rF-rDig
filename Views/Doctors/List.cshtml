@@ -3,24 +3,38 @@
 @foreach (var doctor in Model.Doctors)
 {
 
-    <div class="card col-sm-3 col-lg-3 col-md-3 mr-2 mb-2 d-inline-flex">
+<div class="card Regular shadow col-sm-3 col-lg-3 col-md-3  ml-2 mr-2 mb-2 d-inline-flex">
 
-        <img class="card-img-top border mb-1" src="@doctor.ImageUrl" width="100" height="150" asp-append-version="true" />
+    <img class="card-img-top border mt-2 border-radius" src="@doctor.ImageUrl" width="100" height="150" asp-append-version="true" />
 
-        <div class="card-body">
+    <div class="card-body">
 
-            <h4 class="card-title ">
-                @doctor.DOctorName
-            </h4>
+        <h4 class="card-title ">
+            @doctor.DOctorName
+        </h4>
+    </div>
+    <p class="card-text text-secondary"> @doctor.Specliazation </p>
+
+    <p class="card-text text-secondary">@doctor.Category.CategoryName</p>
+    <div class="row inline-d-flex float-right">
+        <div class="mr-1">
+            <p class="button ml-2"  >
+                <a class="btn btn-primary "
+                   asp-controller="Doctors"
+                   asp-action="Details"
+                   asp-route-Id="@doctor.DoctorId">View Appointments</a>
+            </p>
         </div>
-        <p class="card-text text-secondary"> @doctor.Specliazation </p>
-
-        <p class="card-text text-secondary">@doctor.Category.CategoryName</p>
-
-
+        <div class="">
+            <p class="button">
+                <a class="btn btn-primary"
+                   asp-controller="Appointments"
+                   asp-action="List">Reserve</a>
+            </p>
+        </div>
 
     </div>
+</div>
 
-
-}
+    }
 

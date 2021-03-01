@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Docter_MVC_Miniproject3.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class BookingPageItemAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -57,24 +57,6 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.CategoryId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Patients",
-                columns: table => new
-                {
-                    PatientId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PatientName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Age = table.Column<int>(type: "int", nullable: false),
-                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DoctorName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AppointmentId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Patients", x => x.PatientId);
                 });
 
             migrationBuilder.CreateTable(
@@ -192,8 +174,7 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                     DOctorName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Specliazation = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    PatientId = table.Column<int>(type: "int", nullable: true)
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -204,12 +185,6 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                         principalTable: "Categories",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Doctors_Patients_PatientId",
-                        column: x => x.PatientId,
-                        principalTable: "Patients",
-                        principalColumn: "PatientId",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -221,7 +196,8 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                     DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DoctorId = table.Column<int>(type: "int", nullable: false),
-                    IsAvailable = table.Column<bool>(type: "bit", nullable: false)
+                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    Duration = table.Column<TimeSpan>(type: "time", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -232,6 +208,26 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                         principalTable: "Doctors",
                         principalColumn: "DoctorId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BookingPageItems",
+                columns: table => new
+                {
+                    BookingPageItemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AppointmentId = table.Column<int>(type: "int", nullable: true),
+                    ConsultationFee = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookingPageItems", x => x.BookingPageItemId);
+                    table.ForeignKey(
+                        name: "FK_BookingPageItems_Appointments_AppointmentId",
+                        column: x => x.AppointmentId,
+                        principalTable: "Appointments",
+                        principalColumn: "AppointmentId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -279,21 +275,18 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BookingPageItems_AppointmentId",
+                table: "BookingPageItems",
+                column: "AppointmentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Doctors_CategoryId",
                 table: "Doctors",
                 column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Doctors_PatientId",
-                table: "Doctors",
-                column: "PatientId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Appointments");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -310,7 +303,7 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Doctors");
+                name: "BookingPageItems");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -319,10 +312,13 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Appointments");
 
             migrationBuilder.DropTable(
-                name: "Patients");
+                name: "Doctors");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }

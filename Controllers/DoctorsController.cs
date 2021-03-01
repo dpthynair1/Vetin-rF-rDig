@@ -16,15 +16,17 @@ namespace Docter_MVC_Miniproject3.Controllers
     public class DoctorsController : Controller
     {
         private readonly IDoctorRepository _doctorRepository;
+        private readonly IAppointmentRepository _appointmentRepository;
         private readonly ApplicationDbContext _context;
         private UploadInterface _upload;
 
 
-        public DoctorsController(ApplicationDbContext context, UploadInterface upload, IDoctorRepository doctorRepository)
+        public DoctorsController(ApplicationDbContext context, UploadInterface upload, IDoctorRepository doctorRepository, IAppointmentRepository appointmentRepository)
         {
             _context = context;
             _upload = upload;
             _doctorRepository = doctorRepository;
+            _appointmentRepository = appointmentRepository;
         }
 
         // GET: Doctors
@@ -36,23 +38,23 @@ namespace Docter_MVC_Miniproject3.Controllers
             return View(doctorsListViewModel);
         }
 
-        // GET: Doctors/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: Doctors/Details/5
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var doctor = await _context.Doctors.Include(m => m.Appointments)
-                .FirstOrDefaultAsync(m => m.DoctorId == id);
-            if (doctor == null)
-            {
-                return NotFound();
-            }
+        //    var doctor = await _context.Doctors.Include(m => m.Appointments)
+        //        .FirstOrDefaultAsync(m => m.DoctorId == id);
+        //    if (doctor == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(doctor);
-        }
+        //    return View(doctor);
+        //}
 
         // GET: Doctors/Create
         [HttpGet]
@@ -86,6 +88,25 @@ namespace Docter_MVC_Miniproject3.Controllers
             return RedirectToAction("Create", "Doctors");
         }
 
+
+
+        public IActionResult Details(int id)
+        {
+            //    var pie = _pieRepository.GetPieById(id);
+            //    if (pie == null)
+            //        return NotFound();
+
+            //    return View(pie);
+            // var appointments = _appointmentRepository.AllAppointments.Where(d => d.DoctorId == id).ToList();
+            var appointments = _context.Appointments.Where(d => d.DoctorId == id).Include(a => a.Doctor).ToList();
+            //AppointmentListViewModel appointmentListViewModel = new AppointmentListViewModel();
+            //appointmentListViewModel.Appointments = appointments;
+            DoctorsListViewModel doctorsListViewModel = new DoctorsListViewModel();
+            doctorsListViewModel.Appointments = appointments;
+
+            return View(doctorsListViewModel);
+
+        }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.

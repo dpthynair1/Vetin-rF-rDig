@@ -1,0 +1,76 @@
+﻿@model Doctor_MVC_Miniproject3.Models.Patient
+
+
+<section class="align-center">
+    <form asp-action="CheckOut" method="post" class="form-horizontal align-center" role="form">
+        <h4>Please fill in the below information</h4>
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+
+        <div class="form-group">
+            <label asp-for="LastName" class="col-md-2 control-label text-secondary">Owner Name</label>
+            <div class="col-md-5">
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="FirstName" class="col-md-2 control-label text-secondary">FirstName</label>
+            <div class="col-md-5">
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-md-10 text-secondary">
+            <h6>Male</h6>
+            @Html.RadioButtonFor(model => model.Gender, "Male")
+            <h6>Female</h6>
+            @Html.RadioButtonFor(model => model.Gender, "Female")
+        </div>
+
+
+        <div class="form-group">
+            <label asp-for="City" class="col-md-2 control-label text-secondary">City</label>
+            <div class="col-md-5">
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label asp-for="Country" class="col-md-2 control-label text-secondary">Country</label>
+            <div class="col-md-5">
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PhoneNumber" class="col-md-2 control-label text-secondary">PhoneNumber</label>
+            <div class="col-md-5">
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Email" class="col-md-2 control-label text-secondary">Email</label>
+            <div class="col-md-5">
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5">
+                <input type="submit" asp-route-patientId="" class="btn btn-primary" value="Book Now" />
+            </div>
+        </div>
+
+    </form>
+
+</section>

@@ -1,0 +1,32 @@
+﻿@model Docter_MVC_Miniproject3.Views.ViewModels.PatientViewModel
+
+
+<div>
+    <h6> @Model.PatientName</h6>
+    
+</div>
+
+
+@foreach (var item in Model.appointments)
+{
+
+    <div class="card col-sm-3 col-lg-3 col-md-3 mr-2 mb-2 d-inline-flex border">
+
+        <img class="card-img-top border mb-1" src="@Model" width="100" height="150" asp-append-version="true" />
+
+        <div class="card-body">
+
+            <h4 class="card-title ">
+                @Model.appointment.Doctor.DOctorName
+            </h4>
+        </div>
+        <p class="card-text text-secondary"> @Model.appointment.DateTime </p>
+
+        <p class="card-text text-secondary">@Model.appointment.Duration </p>
+
+
+
+    </div>
+
+
+}

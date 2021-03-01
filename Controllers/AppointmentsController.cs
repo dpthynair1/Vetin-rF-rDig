@@ -73,6 +73,7 @@ namespace Docter_MVC_Miniproject3.Controllers
             appointment.DateTime = vmodel.StartTime;
             appointment.EndTime = vmodel.EndTime;
             appointment.IsAvailable = vmodel.IsAvailable;
+          //  appointment.DoctorName = vmodel.Doctor.DOctorName;
 
 
             if (ModelState.IsValid)
@@ -93,12 +94,13 @@ namespace Docter_MVC_Miniproject3.Controllers
         public IActionResult List()
         {
             AppointmentListViewModel appointmentListViewModel = new AppointmentListViewModel();
-            appointmentListViewModel.Appointments = _appointmentRepository.AllAppointments;
+            appointmentListViewModel.Appointments = _appointmentRepository.AppointmentsAvailable;
 
 
             return View(appointmentListViewModel);
         }
 
+       
 
 
         // GET: Appointments/Edit/5

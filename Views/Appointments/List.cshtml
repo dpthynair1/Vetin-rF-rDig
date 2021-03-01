@@ -4,22 +4,25 @@
     ViewData["Title"] = "List Appointments";
 }
 
-<h2>Index</h2>
 
 
-<table class="table">
+<table class="table border  table-hover thead-secondary">
     <thead>
-        <tr>
-            
+        <tr class="">
+            <th scope="col"> Doctor Name</th>
+            <th scope="col">Appointment Time</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Available</th>
         </tr>
+       
     </thead>
 
-    <tbody>
+    <tbody class="">
         @foreach (var item in Model.Appointments)
         {
             <tr>
                 
-                <td>
+                <td class="text-primary">
                     @Html.DisplayFor(modelitem => item.Doctor.DOctorName)
                 </td>
                 <td>
@@ -29,8 +32,20 @@
                     <p> <i class="fas fa-hourglass-end"></i> @Html.DisplayFor(modelitem => item.Duration.TotalMinutes) mins</p>
                 </td>
                 <td>
-                    <a asp-controller="Patients"
-   asp-action="Create"asp-route-id="@item.AppointmentId">Reserve</a>
+
+
+                    <div class="addToCart">
+                        <p class="button">
+                            <a class="btn btn-primary"
+                               asp-controller="BookingPage"
+                               asp-action="AddToBookingPage"
+                               asp-route-appointmentId="@item.AppointmentId">Reserve</a>
+                        </p>
+                    </div>
+
+                    @*<a asp-controller="BookingPage"
+        asp-action="AddToBookingPage"  asp-route-appointmentId="@item.AppointmentId">Reserve</a>*@
+
                 </td>
 
             </tr>

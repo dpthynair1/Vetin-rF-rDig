@@ -7,7 +7,8 @@ namespace Doctor_MVC_Miniproject3.Models
 {
   public  interface IAppointmentRepository
     {
-        public IEnumerable<Appointment> AllAppointments { get; }
-        public IEnumerable<Doctor> Doctors { get; }
+       IEnumerable<Appointment> AllAppointments { get; }
+       IEnumerable<Doctor> Doctors { get; }
+        IEnumerable<Appointment> AppointmentsAvailable { get; }
     }
 }

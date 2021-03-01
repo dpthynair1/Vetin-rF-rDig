@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Docter_MVC_Miniproject3.Data;
 using Doctor_MVC_Miniproject3.Models;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -15,11 +16,6 @@ namespace Docter_MVC_Miniproject3.Models
         {
             _appDbContext = appDbContext;
         }
-
-
-       
-        
-
         public IEnumerable<Appointment> AllAppointments
         {
             get
@@ -39,6 +35,14 @@ namespace Docter_MVC_Miniproject3.Models
             }
         }
 
+        public IEnumerable<Appointment> AppointmentsAvailable
+        {
+            get
+
+            {
+                return _appDbContext.Appointments.Where(c => c.IsAvailable == true).Include(c => c.Doctor);
+            }
+        }
     }
 
 }

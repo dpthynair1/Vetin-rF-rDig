@@ -11,10 +11,11 @@ namespace Docter_MVC_Miniproject3.Models
         }
 
         public int BookingPageItemId  { get; set; }
-        [ForeignKey("AppointmentId")]
+       
         public Appointment Appointment { get; set; }
         public int ConsultationFee { get; set; }
-
+        public string BookingPageId { get; set; }
+        public int Amount { get; set; }
 
 
 

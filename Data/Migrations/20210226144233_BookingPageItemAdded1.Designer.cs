@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Docter_MVC_Miniproject3.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210225144357_InitialCreate2")]
-    partial class InitialCreate2
+    [Migration("20210226144233_BookingPageItemAdded1")]
+    partial class BookingPageItemAdded1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,29 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Docter_MVC_Miniproject3.Models.BookingPageItem", b =>
+                {
+                    b.Property<int>("BookingPageItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AppointmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BookingPageId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ConsultationFee")
+                        .HasColumnType("int");
+
+                    b.HasKey("BookingPageItemId");
+
+                    b.HasIndex("AppointmentId");
+
+                    b.ToTable("BookingPageItems");
+                });
 
             modelBuilder.Entity("Docter_MVC_Miniproject3.Models.Category", b =>
                 {
@@ -81,9 +104,6 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PatientId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Specliazation")
                         .HasColumnType("nvarchar(max)");
 
@@ -91,39 +111,7 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("PatientId");
-
                     b.ToTable("Doctors");
-                });
-
-            modelBuilder.Entity("Doctor_MVC_Miniproject3.Models.Patient", b =>
-                {
-                    b.Property<int>("PatientId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AppointmentId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DoctorName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PatientName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PatientId");
-
-                    b.ToTable("Patients");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -326,6 +314,15 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Docter_MVC_Miniproject3.Models.BookingPageItem", b =>
+                {
+                    b.HasOne("Doctor_MVC_Miniproject3.Models.Appointment", "Appointment")
+                        .WithMany()
+                        .HasForeignKey("AppointmentId");
+
+                    b.Navigation("Appointment");
+                });
+
             modelBuilder.Entity("Doctor_MVC_Miniproject3.Models.Appointment", b =>
                 {
                     b.HasOne("Doctor_MVC_Miniproject3.Models.Doctor", "Doctor")
@@ -344,10 +341,6 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Doctor_MVC_Miniproject3.Models.Patient", null)
-                        .WithMany("Doctors")
-                        .HasForeignKey("PatientId");
 
                     b.Navigation("Category");
                 });
@@ -411,11 +404,6 @@ namespace Docter_MVC_Miniproject3.Data.Migrations
             modelBuilder.Entity("Doctor_MVC_Miniproject3.Models.Doctor", b =>
                 {
                     b.Navigation("Appointments");
-                });
-
-            modelBuilder.Entity("Doctor_MVC_Miniproject3.Models.Patient", b =>
-                {
-                    b.Navigation("Doctors");
                 });
 #pragma warning restore 612, 618
         }

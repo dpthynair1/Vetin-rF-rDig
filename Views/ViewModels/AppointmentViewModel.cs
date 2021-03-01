@@ -17,10 +17,12 @@ namespace Docter_MVC_Miniproject3.Views.ViewModels
 
         public int DoctorId { get; set; }    
         public Doctor Doctor { get; set; }
-
+        
 
         public Boolean IsAvailable = true;
         public TimeSpan Duration1 { get; }
+
+        string Name;
         
     }
 

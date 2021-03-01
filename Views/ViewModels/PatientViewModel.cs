@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Doctor_MVC_Miniproject3.Models;
 
 namespace Docter_MVC_Miniproject3.Views.ViewModels
@@ -18,10 +19,13 @@ namespace Docter_MVC_Miniproject3.Views.ViewModels
 
         public int AppointmentId { get; set; }
         public Appointment appointment { get; }
+        public IEnumerable<Appointment> appointments { get; set; }
+        public IEnumerable<PatientDetail> PatientDetails { get; set; }
 
-       
 
 
-        
+
+
+
     }
 }

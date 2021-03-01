@@ -14,6 +14,8 @@ namespace Docter_MVC_Miniproject3.Views.ViewModels
         public IEnumerable<Doctor> Doctors { get; set; }
         public string CurrentCategory { get; set; }
         public IEnumerable<Category> Categories { get; set; }
+        public IEnumerable<Appointment> Appointments { get; set; }
+
 
     }
 }

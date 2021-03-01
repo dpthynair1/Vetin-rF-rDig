@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Doctor_MVC_Miniproject3.Models;
 
-namespace Doctor_MVC_Miniproject3.Models
+namespace Docter_MVC_Miniproject3.Models
 {
-   public interface IPatientRepository
+    public interface IPatientRepository
     {
-        public IEnumerable<Doctor> AllDoctors { get; }
-        public IEnumerable<Appointment>  appointments { get; }
-        public Patient GetPatient { get; }
-        
-
-        
+        void CreatePatient(Patient patient);
     }
 }

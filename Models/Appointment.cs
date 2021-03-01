@@ -24,8 +24,6 @@ namespace Doctor_MVC_Miniproject3.Models
         [ForeignKey("DoctorId")]
         public Doctor Doctor{ get; set; }
 
-        //public int? PatientId { get; set; }
-        //public Patient Patient { get; set; }
 
         public Boolean IsAvailable { get; set; }
         
