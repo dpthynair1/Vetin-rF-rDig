@@ -9,7 +9,8 @@
             <th scope="col"> Doctor Name</th>
             <th scope="col">Appointment Time</th>
             <th scope="col">Duration</th>
-          
+            <th scope="col">Status</th>
+
         </tr>
 
     </thead>
@@ -28,13 +29,20 @@
                 <td>
                     <p> <i class="fas fa-hourglass-end"></i> @Html.DisplayFor(modelitem => item.Duration.TotalMinutes) mins</p>
                 </td>
-                
+                <td>
+                    @{var isAttachmentA = (item.IsAvailable ? "Available" : "Booked");}
+
+                    <p>  @Html.DisplayFor(modelitem => isAttachmentA)</p>
+                </td>
+
             </tr>
 
         }
     </tbody>
 
 </table>
+@if (User.IsInRole("Doctor"))
+{
 <div class="row inline-d-flex float-right">
     <div class="">
         <p class="button  " style="width: 200px; text-align: center">
@@ -44,13 +52,28 @@
         </p>
     </div>
     <div class="">
-        <p class="button">
+        <p class="button mr-4">
             <a class="btn btn-primary"
                asp-controller="Appointments"
                asp-action="Create"> Add An Appointment</a>
         </p>
     </div>
+    <div>
+        <a class="btn btn-primary" asp-action="List">Back to List</a>
+    </div>
 </div>
+}
+else
+{
+<div class="row inline-d-flex float-right">
+    <div>
+        <a class="btn btn-primary" asp-action="List">Back to List</a>
+    </div>
 
+    <div>
+        <a class="btn btn-primary ml-3 mr-3"asp-controller="Appointments" asp-action="List">View Appointments</a>
+    </div>
+</div>
+    }
 
 

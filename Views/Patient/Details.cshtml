@@ -1,51 +1,60 @@
-﻿@model PatientViewModel
+﻿@model PatientDetailViewModel
+
+
+<h4>Your Appointment has been booked</h4>
+
+
+<table class="table border  table-hover text-secondary">
+    <thead>
+        <tr class="">
+            <th scope="col"> Doctor Name</th>
+            <th scope="col"> Patient Name</th>
+            <th scope="col">Appointment Time</th>
+            <th scope="col">Duration</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody class="">
+
+
+        @foreach (var item in Model.PatientDetails)
+        {
+        <tr>
+            <td class="text-primary">
+                @Html.DisplayFor(modelitem => item.Appointment.Doctor.DOctorName)
+            </td>
+            <td class="text-primary">
+                @Html.DisplayFor(modelitem => item.Patient.FirstName)
+            </td>
+            <td class="">
+                @Html.DisplayFor(modelitem => item.Appointment.DateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelitem => item.Appointment.Duration.TotalMinutes) mins
+            </td>
+
+
+        </tr>
+
+        }
+    </tbody>
+
+</table>
 
 
 
-<h1>Hello</h1>
 
 
-@{
-    ViewData["Title"] = "Deails";
-}
-<body class="Doctorbody">
-    <h1>Index</h1>
 
-   
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.PatientName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.appointment.DateTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.appointment.Duration)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.appointments)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Doctor.DOctorName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateTime)
-                    </td>
-                    <td>
-                   
-                    </td>
-                   
-                </tr>
-            }
-        </tbody>
-    </table>
-</body>
+
+
+
+
+
+
+
 
 
 

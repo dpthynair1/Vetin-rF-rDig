@@ -9,10 +9,11 @@ using Docter_MVC_Miniproject3.Data;
 using Doctor_MVC_Miniproject3.Models;
 using Microsoft.AspNetCore.Http;
 using Docter_MVC_Miniproject3.Views.ViewModels;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace Docter_MVC_Miniproject3.Controllers
 {
+    [Authorize]
     public class DoctorsController : Controller
     {
         private readonly IDoctorRepository _doctorRepository;
@@ -68,7 +69,7 @@ namespace Docter_MVC_Miniproject3.Controllers
 
 
         // POST: Doctors/Create
-
+        [Authorize(Roles = "Doctor")]
         [HttpPost]
         public IActionResult Create(IList<IFormFile> files, DoctorViewModel vmodel, Doctor doctor)
         {

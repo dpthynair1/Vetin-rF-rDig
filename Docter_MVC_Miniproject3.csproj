@@ -38,6 +38,8 @@
     <Folder Include="Views\Shared\Components\BookingPageSummary\" />
     <Folder Include="Views\Patient\" />
     <Folder Include="Views\PatientDetails\" />
+    <Folder Include="Views\Contact\" />
+    <Folder Include="TagHelpers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Patients\CreatePatients.cshtml" />

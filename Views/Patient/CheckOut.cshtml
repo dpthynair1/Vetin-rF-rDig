@@ -16,18 +16,18 @@
         </div>
 
         <div class="form-group">
-            <label asp-for="FirstName" class="col-md-2 control-label text-secondary">FirstName</label>
+            <label asp-for="FirstName" class="col-md-2 control-label text-secondary">Patient Name</label>
             <div class="col-md-5">
                 <input asp-for="FirstName" class="form-control" />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
         </div>
 
-        <div class="col-md-10 text-secondary">
-            <h6>Male</h6>
-            @Html.RadioButtonFor(model => model.Gender, "Male")
-            <h6>Female</h6>
-            @Html.RadioButtonFor(model => model.Gender, "Female")
+        <div class="col-md-10 text-secondary inline-d-flex">
+           Male @Html.RadioButtonFor(model => model.Gender, "Male")
+
+              Female @Html.RadioButtonFor(model => model.Gender, "Female")
+
         </div>
 
 

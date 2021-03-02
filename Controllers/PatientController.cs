@@ -64,11 +64,11 @@ namespace Docter_MVC_Miniproject3.Controllers
 
         public IActionResult Details(int ID)
         { 
-            var list = _applicationDbContext.PatientDetails.Where(c => c.PatientId == ID).Include(c => c.Appointment).Include(c => c.Patient).ToList();
-            PatientViewModel patientViewModel = new PatientViewModel();
-            patientViewModel.PatientDetails = list;
+            var list = _applicationDbContext.PatientDetails.Where(c => c.PatientId == ID).Include(c => c.Appointment).Include(c => c.Patient).Include(c => c.Appointment.Doctor).ToList();
+            PatientDetailViewModel patientDetailViewModel = new PatientDetailViewModel();
+            patientDetailViewModel.PatientDetails = list;
 
-            return View(patientViewModel);
+            return View(patientDetailViewModel);
         }
 
         //[HttpGet]

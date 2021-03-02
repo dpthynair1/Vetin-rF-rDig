@@ -5,7 +5,7 @@
 
 <div class="card Regular shadow col-sm-3 col-lg-3 col-md-3  ml-2 mr-2 mb-2 d-inline-flex">
 
-    <img class="card-img-top border mt-2 border-radius" src="@doctor.ImageUrl" width="100" height="150" asp-append-version="true" />
+    <img class="card-img-top border mt-3 rounded-top" src="@doctor.ImageUrl" width="100" height="150" asp-append-version="true" />
 
     <div class="card-body">
 
@@ -13,9 +13,9 @@
             @doctor.DOctorName
         </h4>
     </div>
-    <p class="card-text text-secondary"> @doctor.Specliazation </p>
+    <p class="card-text text-dark"><span class="text-dark">Specialist : </span> @doctor.Specliazation </p>
 
-    <p class="card-text text-secondary">@doctor.Category.CategoryName</p>
+    <p class="card-text text-dark"> <span class="text-dark">Category : </span>@doctor.Category.CategoryName</p>
     <div class="row inline-d-flex float-right">
         <div class="mr-1">
             <p class="button ml-2"  >

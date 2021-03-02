@@ -19,6 +19,7 @@ namespace Doctor_MVC_Miniproject3.Models
      
         public int PatientId { get; set; }
         public List<PatientDetail> PatientDetails { get; set; }
+       
 
         [Required(ErrorMessage = "Please enter your first name")]
         [Display(Name = "First name")]
